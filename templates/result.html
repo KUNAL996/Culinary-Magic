@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Results</title>
+    <link rel="stylesheet" href="static/style1.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Results</h1>
+        <ul id="recipe-results">
+            {% if recipes %}
+                {% for recipe in recipes %}
+                {% set recipe_html = recipe
+                    | replace('## ', '<h2>')
+                    | replace('##', '</h2>')
+                    | replace('* ', '<li>')
+                    | replace('*', '</li>')
+                    | replace('<li></li>', '')
+                    | safe %}
+                <div class="recipe">{{ recipe_html|safe }}</div>
+                {% endfor %}
+            {% else %}
+                <li>No recipes found. Please try different options.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>

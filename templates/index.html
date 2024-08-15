@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Magic</title>
+    <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Culinary Magic</h1>
+        <form id="planner-form" action="/result" method="get">
+            <!-- Available Vegetables -->
+            <div class="option">
+                <h2>Available Vegetables <span class="required"></span></h2>
+                <div class="checkbox-group" id="vegetable-list">
+                    <label><input type="checkbox" name="vegetables" value="Tomatoes"> Tomatoes</label>
+                    <label><input type="checkbox" name="vegetables" value="Potatoes"> Potatoes</label>
+                    <label><input type="checkbox" name="vegetables" value="Carrots"> Carrots</label>
+                    <label><input type="checkbox" name="vegetables" value="Spinach"> Spinach</label>
+                </div>
+                <input type="text" id="new-vegetable" placeholder="Add another vegetable...">
+                <button class="submit-btn" type="button" onclick="addVegetable()">Add Vegetable</button>
+                <div id="vegetable-error" class="error-message">Please select at least one vegetable.</div>
+                <div id="invalid-vegetable-error" class="error-message">Invalid vegetable. Please add a valid vegetable.</div>
+            </div>
+
+            <!-- Meal Time -->
+            <div class="option">
+                <h2>Meal Time <span class="required"></span></h2>
+                <div class="radio-group">
+                    <label><input type="radio" name="mealTime" value="Breakfast"> Breakfast</label>
+                    <label><input type="radio" name="mealTime" value="Lunch"> Lunch</label>
+                    <label><input type="radio" name="mealTime" value="Dinner"> Dinner</label>
+                    <label><input type="radio" name="mealTime" value="Snack"> Snack</label>
+                </div>
+                <div id="meal-error" class="error-message">Please select a meal time.</div>
+            </div>
+
+            <!-- Cooking Duration -->
+            <div class="option">
+                <h2>Cooking Duration <span class="required"></span></h2>
+                <div class="slider-group">
+                    <label for="duration">15 min</label>
+                    <input type="range" id="duration" name="duration" min="15" max="120" value="15" onchange="updateDurationLabel(this.value)">
+                    <label id="duration-label" for="duration">15 min</label>
+                </div>
+            </div>
+
+            <!-- Type of Food -->
+            <div class="option">
+                <h2>Type of Food <span class="required"></span></h2>
+                <select id="food-type" name="foodType">
+                    <option value="">Select food type</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="non-vegetarian">Non-Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="salad">Salad</option>
+                    <option value="soup">Soup</option>
+                    <option value="others">Others</option>
+                </select>
+                <div id="food-error" class="error-message">Please select a type of food.</div>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="submit-btn" type="button" onclick="validateAndSubmit()">Find Recipes</button>
+        </form>
+    </div>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
