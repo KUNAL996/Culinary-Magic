@@ -50,5 +50,5 @@
     Select the type of food you want to prepare.
     Click "Find Recipes" to get personalized recipe suggestions.
 
-###Thanks to Google for the Gemini API integration.
+**Thanks to Google for the Gemini API integration.**
 
