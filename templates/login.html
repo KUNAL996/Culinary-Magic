@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Magic - Login</title>
+    <link rel="icon" href="static/image/logo1.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="form-container" id="login-section">
+            <h1>Welcome to Culinary Magic</h1>
+            <p class="subtitle">Discover the joy of cooking with our platform.</p>
+            <form action="/login" method="post">
+                <h2>Login</h2>
+                <p class="form-subtitle">Enter your email and password to access your account.</p>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                
+                <!-- Alert for errors -->
+                <div id="alert-container">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                <button type="submit">Login</button>
+                <p class="switch-link">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+            </form>
+        </div>
+    </div>
+    <script src="static/script.js"></script>
+</body>
+</html>

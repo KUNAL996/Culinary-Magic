@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Results</title>
+    <link rel="icon" href="static/image/logo1.ico" type="image/x-icon">
     <link rel="stylesheet" href="static/style1.css" />
 </head>
 <body>
     <div class="container">
+        <!-- Navigation Bar -->
+        <div class="navbar">
+            <div class="logo">
+                <h2>Culinary Magic</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/">New Recipe</a>
+            </div>
+        </div>
+        
+        {% if session['loggedin'] %}
+        <div class="user-section">
+            <p>Welcome, {{ session['name'] }}!</p>
+            <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+        </div>
+        {% else %}
+        <div class="login-section">
+            <button class="login-btn" onclick="window.location.href='/login'">Login</button>
+            <button class="signup-btn" onclick="window.location.href='/signup'">Sign Up</button>
+        </div>
+        {% endif %}
+
         <h1>Recipe Results</h1>
         <ul id="recipe-results">
             {% if recipes %}
@@ -17,7 +40,7 @@
                     | replace('##', '</h2>')
                     | replace('* ', '<li>')
                     | replace('*', '</li>')
-                    | replace('<li></li>', '')
+                    | replace('<li></li>', ' ')
                     | safe %}
                 <div class="recipe">{{ recipe_html|safe }}</div>
                 {% endfor %}
@@ -26,5 +49,6 @@
             {% endif %}
         </ul>
     </div>
+    <script src="static/script1.js"></script>
 </body>
 </html>
