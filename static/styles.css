@@ -1,0 +1,153 @@
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: url('image/2.jpg') no-repeat center center/cover;
+    background-color: rgba(255, 255, 255, 0.2); /* Black overlay */
+    background-blend-mode: overlay; /* Blend the black color with the image */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Container Style */
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+}
+
+/* Form Container Styles */
+.form-container {
+    padding: 40px;
+    width: 100%;
+    max-width: 500px; /* Set a max-width for better centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;     /* Center content horizontally */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Header Styles */
+h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+/* Form Styles */
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.form-subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+/* Input Styles */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #FFFFFF;
+}
+
+.signup-container input {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    border: 1px solid #555555;
+}
+
+/* Button Styles */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1c1b1b;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #a5a5a5;
+}
+
+/* Switch Link Styles */
+.switch-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.switch-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-container .switch-link a {
+    color: #FFFFFF;
+}
+
+/* Additional Styles for Signup Page */
+.signup-container .subtitle {
+    color: #CCCCCC;
+}
+
+/* Alert Message Styles */
+.alert {
+    color: #fff; /* White text */
+    background-color: #ff4d4d; /* Red background for error alerts */
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+/* Smooth fade-in effect for alerts */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

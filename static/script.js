@@ -1,12 +1,15 @@
 // Predefined list of valid vegetables
 const validVegetables = [
     'Tomatoes', 'Potatoes', 'Carrots', 'Spinach', 'Cabbage', 'Lettuce', 'Broccoli', 'Cauliflower', 
-    'Zucchini', 'Peppers', 'Onions', 'Garlic', 'Peas', 'Beans', 'Radishes', 'Beets', 'Mushrooms', 
-    'Cucumbers', 'Pumpkin', 'Squash', 'Celery', 'Corn', 'Asparagus','tomatoes', 'potatoes', 'carrots', 
-    'spinach', 'cabbage', 'lettuce', 'broccoli', 'cauliflower', 'zucchini', 'peppers', 'onions',
-    'garlic', 'peas', 'beans', 'radishes', 'beets', 'mushrooms', 'cucumbers', 'pumpkin', 'squash', 
-    'celery', 'corn', 'asparagus','onion','Onion','carrot','Carrot','Potatoe','potatoe','cabbage','garlic','beet',
-    'tomatoe','Tomatoe'
+    'Peppers', 'Onions', 'Garlic', 'Peas', 'Beans', 'Radishes', 'Beets', 'Mushrooms', 
+    'Cucumbers', 'Pumpkin', 'Corn', 'tomatoes', 'potatoes', 'carrots', 
+    'spinach', 'cabbage', 'lettuce', 'broccoli', 'cauliflower', 'peppers', 'onions',
+    'garlic', 'peas', 'beans', 'radishes', 'mushrooms', 'cucumbers', 'pumpkin', 
+    'corn', ,'onion','Onion','carrot','Carrot','Potato','potato','cabbage','garlic',
+    'tomatoe','Tomatoe','Beetroots','Beetroot','beetroots','beetroot','Okra','Okras','okra', 'okras',
+    'milk','Milk','butter','Butter','cheese','Cheese','yogurt','Yogurt','cream','Cream','curd','Curd',
+    'paneer','Paneer','tofu','Tofu','soy','Soy','soya','Soya','mushroom','Mushroom','mushrooms','Mushrooms',
+    'chicken','Chicken','mutton','Mutton','pork','Pork','fish','Fish','prawn','Prawn','crab','Crab','rice','Rice','Noodles'
 ];
 
 // Store selected values in an object
@@ -24,33 +27,40 @@ function updateDurationLabel(value) {
 }
 
 // Function to add a new vegetable and store the value
-function addVegetable() {
+function addVegetable(event) {
     event.preventDefault(); // Prevents the form from submitting and redirecting
 
     const vegetableList = document.getElementById('vegetable-list');
     const newVegetable = document.getElementById('new-vegetable').value.trim();
-    const isValid = validVegetables.includes(newVegetable);
+    const isValid = validVegetables.includes(newVegetable.toLowerCase());
 
     // Check if the vegetable is already in the checkbox list
-    const alreadyExists = [...vegetableList.querySelectorAll('input[type="checkbox"]')].some(
+    const isAlreadyAdded = Array.from(vegetableList.querySelectorAll('input[type="checkbox"]')).some(
         checkbox => checkbox.value.toLowerCase() === newVegetable.toLowerCase()
     );
 
-    if (alreadyExists) {
-        document.getElementById('invalid-vegetable-error').style.display = 'block';
-        document.getElementById('invalid-vegetable-error').textContent = 'The vegetable is already available in the list.';
-    } else if (isValid) {
+    if (isValid && !isAlreadyAdded) {
         const newLabel = document.createElement('label');
         newLabel.innerHTML = `<input type="checkbox" name="vegetables" value="${newVegetable}" checked> ${newVegetable}`;
         vegetableList.appendChild(newLabel);
         plannerData.vegetables.push(newVegetable);
         document.getElementById('new-vegetable').value = '';
         document.getElementById('invalid-vegetable-error').style.display = 'none';
+    } else if (isAlreadyAdded) {
+        alert("This vegetable is already available in the list.");
     } else {
         document.getElementById('invalid-vegetable-error').style.display = 'block';
-        document.getElementById('invalid-vegetable-error').textContent = 'Invalid vegetable. Please add a valid vegetable.';
+        document.getElementById('invalid-vegetable-error').textContent = 'Invalid ingredient. Please add a valid ingredient.';
     }
 }
+
+// Add an event listener for the "Enter" key to trigger the addVegetable function
+document.getElementById('new-vegetable').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevents form submission
+        document.getElementById('add-vegetable-btn').click(); // Triggers the "Add Vegetable" button click
+    }
+});
 
 // Event listeners to update plannerData when options are selected
 document.querySelectorAll('.radio-group input').forEach(input => {
@@ -101,9 +111,26 @@ function validateAndSubmit() {
         document.getElementById('food-error').style.display = 'none';
     }
 
-    // If all fields are valid, submit the form
+    // If all fields are valid, show the loading animation and submit the form
     if (isValid) {
-        const form = document.getElementById('planner-form');
-        form.submit(); // Submit the form normally
+        const loadingAnimation = document.getElementById('loading-animation');
+        loadingAnimation.style.display = 'flex';
+        setTimeout(() => {
+            document.getElementById('planner-form').submit(); // Submit the form after the animation
+        }, 5000); // 5 seconds loading animation
     }
 }
+
+function logout() {
+    window.location.href = '/logout';
+}
+
+window.onload = function() {
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function() {
+        window.history.pushState(null, "", window.location.href);
+    };
+};
