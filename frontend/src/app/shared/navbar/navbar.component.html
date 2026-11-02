@@ -1,0 +1,20 @@
+<header class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" routerLink="/">
+      <span class="brand-icon">🍲</span>
+      <span>Culinary Magic</span>
+    </a>
+
+    <nav class="nav-links" *ngIf="currentUser() as user">
+      <a routerLink="/recipe-form" routerLinkActive="active">Create Recipe</a>
+      <a routerLink="/saved-recipes" routerLinkActive="active">My Cookbook</a>
+      <span class="nav-user">Hi, {{ user.full_name.split(' ')[0] }}</span>
+      <button class="btn btn-secondary nav-logout" (click)="logout()">Logout</button>
+    </nav>
+
+    <nav class="nav-links" *ngIf="!currentUser()">
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <a class="btn btn-primary" routerLink="/register">Sign Up</a>
+    </nav>
+  </div>
+</header>

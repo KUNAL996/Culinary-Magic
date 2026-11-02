@@ -1,0 +1,37 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>My Cookbook 📖</h1>
+    <p class="text-muted">All the recipes you've saved, in one place.</p>
+  </div>
+
+  <div *ngIf="loading" class="text-muted">Loading your cookbook...</div>
+
+  <div *ngIf="!loading && recipes.length === 0" class="empty-state card">
+    <div class="empty-icon">🍽️</div>
+    <h2>No recipes saved yet</h2>
+    <p class="text-muted">Generate a recipe and hit "Save" to start building your cookbook.</p>
+    <a routerLink="/recipe-form" class="btn btn-primary">Create a Recipe</a>
+  </div>
+
+  <div class="recipe-grid" *ngIf="!loading && recipes.length > 0">
+    <div class="recipe-tile card" *ngFor="let recipe of recipes" (click)="openRecipe(recipe.recipe_id)">
+      <div class="tile-icon">🍛</div>
+      <h3>{{ recipe.title }}</h3>
+      <div class="tile-meta">
+        <span class="chip">{{ recipe.cuisine }}</span>
+        <span class="chip">{{ recipe.difficulty_level }}</span>
+      </div>
+      <div class="tile-footer">
+        <span class="text-muted">⏱️ {{ recipe.cooking_time_minutes }} min · 🍽️ {{ recipe.servings }} servings</span>
+        <button
+          class="btn-icon-delete"
+          (click)="deleteRecipe($event, recipe.recipe_id)"
+          [disabled]="deletingId === recipe.recipe_id"
+          aria-label="Remove recipe"
+        >
+          🗑️
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

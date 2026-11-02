@@ -1,0 +1,114 @@
+<div class="page-container">
+  <div class="form-header">
+    <h1>What shall we cook today? ✨</h1>
+    <p class="text-muted">Tell us what you've got, and Culinary Magic will whip up a recipe just for you.</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="card recipe-form">
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="food_type">Food type</label>
+        <select id="food_type" formControlName="food_type">
+          <option value="" disabled>Select a type</option>
+          <option *ngFor="let type of foodTypes" [value]="type">{{ type }}</option>
+        </select>
+        <span class="field-error" *ngIf="f['food_type'].touched && f['food_type'].errors?.['required']">
+          Please select a food type.
+        </span>
+      </div>
+
+      <div class="form-field">
+        <label for="cuisine">Cuisine preference</label>
+        <select id="cuisine" formControlName="cuisine">
+          <option value="" disabled>Select a cuisine</option>
+          <option *ngFor="let c of cuisines" [value]="c">{{ c }}</option>
+        </select>
+        <span class="field-error" *ngIf="f['cuisine'].touched && f['cuisine'].errors?.['required']">
+          Please select a cuisine.
+        </span>
+      </div>
+
+      <div class="form-field">
+        <label for="cooking_time_minutes">Cooking time available</label>
+        <select id="cooking_time_minutes" formControlName="cooking_time_minutes">
+          <option *ngFor="let opt of cookingTimeOptions" [value]="opt.value">{{ opt.label }}</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="difficulty_level">Difficulty level</label>
+        <div class="radio-group">
+          <label *ngFor="let level of difficultyLevels" class="radio-pill">
+            <input type="radio" formControlName="difficulty_level" [value]="level" />
+            {{ level }}
+          </label>
+        </div>
+        <span class="field-error" *ngIf="f['difficulty_level'].touched && f['difficulty_level'].errors?.['required']">
+          Please select a difficulty level.
+        </span>
+      </div>
+
+      <div class="form-field">
+        <label for="servings">Number of servings</label>
+        <input id="servings" type="number" formControlName="servings" min="1" max="50" />
+        <span class="field-error" *ngIf="f['servings'].touched && f['servings'].errors">
+          Servings must be between 1 and 50.
+        </span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="ingredient_input">Ingredients available</label>
+      <div class="ingredient-input-row">
+        <input
+          id="ingredient_input"
+          type="text"
+          placeholder="Type an ingredient and press Enter"
+          [(ngModel)]="ingredientInput"
+          [ngModelOptions]="{ standalone: true }"
+          (keydown)="onIngredientKeydown($event)"
+        />
+        <button type="button" class="btn btn-secondary" (click)="addIngredient()">Add</button>
+      </div>
+      <div class="ingredient-chips">
+        <span class="chip" *ngFor="let ing of ingredients.controls; let i = index">
+          {{ ing.value }}
+          <button type="button" class="chip-remove" (click)="removeIngredient(i)" aria-label="Remove ingredient">
+            &times;
+          </button>
+        </span>
+      </div>
+      <span class="field-error" *ngIf="ingredients.touched && ingredients.errors?.['minLengthArray']">
+        Add at least one ingredient.
+      </span>
+    </div>
+
+    <div class="form-field">
+      <label>Dietary restrictions</label>
+      <div class="checkbox-group">
+        <label class="checkbox-pill" *ngFor="let option of dietaryOptions">
+          <input
+            type="checkbox"
+            [checked]="isDietaryChecked(option)"
+            (change)="toggleDietary(option, $any($event.target).checked)"
+          />
+          {{ option }}
+        </label>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="additional_notes">Additional notes (optional)</label>
+      <textarea
+        id="additional_notes"
+        formControlName="additional_notes"
+        rows="3"
+        placeholder="e.g. spicy, kid-friendly, one-pot meal..."
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block btn-generate" [disabled]="submitting">
+      {{ submitting ? 'Conjuring your recipe...' : '✨ Generate Recipe' }}
+    </button>
+  </form>
+</div>
